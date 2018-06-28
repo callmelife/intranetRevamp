@@ -14,11 +14,9 @@
     'use strict';
     var listName = 'MessageFromLeadershipHomepage';
     var siteURL = _spPageContextInfo.webServerRelativeUrl;
-
     var fullString = "https://insulet.sharepoint.com/_api/web/lists/getbytitle('MessageFromLeadershipHomepage')/items?$select=*";
 
     $.ajax({
-      // url: siteURL + "/_api/web/lists/getbytitle('" + listName + "')/items?$select=*",
       url: fullString,
       method: "GET",
       headers: {
@@ -27,23 +25,16 @@
       success: getMessageSuccess,
       error: getMessageError
     });
-
     function getMessageSuccess(data, request) {
       var testUrl = 'https://insulet.sharepoint.com';
       var html = [];
       var webUrl = "https://insulet.sharepoint.com";
-
       var results = data.d.results;
       var siteCollectionURL = SP.PageContextInfo.get_siteServerRelativeUrl();
-
       var employeeMessage = data.d.results[0].EmployeeMessage;
       var employeePageUrl = data.d.results[0].EmployeeMessagePageURL.Url;
       var employeePicUrl = data.d.results[0].EmployeePicture.Url;
       var employeeNameAndTitle = data.d.results[0].EmployeeNameAndTitle;
-      console.log(employeeMessage);
-      console.log(employeePageUrl);
-      console.log(employeePicUrl);
-      console.log(employeeNameAndTitle);
 
       html.push("<div class='message-container-outer'><div class='message-container-inner'><div class='message-left' style='width: 195.5px;'>​<img style='margin-top: 5%; max-width: 180px; height: auto'  class='employee-pic-acton' src='" + employeePicUrl + "' alt='' />");
 
@@ -53,10 +44,8 @@
 
       html.push("<div class='view-control'><div class='view-control-inner'> ​<a target='_blank' href='" +  employeePageUrl + "'>View Page</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​ </div></div></div>");
 
-
       $('#leadMess').append(html.join(""));
     };
-
 
     function getMessageError(error) {
       					alert("error");
@@ -71,13 +60,6 @@
 
 <body>
   <div id='leadMess' class='leadMessOuter'>
-        <!-- <div class='leadMessNameAndTitle'><span class='leadMessNameAndTitleTexr'>Aaron Rideout</span><br>Employee Since 2015</div>
-        <div class='empSpotStory'>“It’s been an amazing ride thus far, but... the best is yet to come.”</div>
-        <div class='empSpotViewPage'><p class='empSpotViewPageText'>  <a target='_blank'      href='https://insulet.sharepoint.com/Pages/AaronRideout.aspx'>View Page</a></p></div> -->
-      <!-- </div> -->
-
   </div>
-
 </body>
-
 </html>

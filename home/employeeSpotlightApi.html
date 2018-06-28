@@ -8,24 +8,19 @@
 </head>
 <style type='text/css'>
 .ps-container {
-
   background-repeat: no-repeat;
   background-size: cover;
-
   width: 100%;
   height: 390px;
-  /* background-position: 100% 33%; */
 }
 .ps-name {
   color: white;
-  /* padding: 120px 0px 0px 50px; */
   font-size: 18px;
   position: relative;
   top: 205px;
   left: 15px;
 }
 .ps-story {
-  /* padding: 40px 35px 15px 65px; */
   color: white;
   font-size: 24px;
   position: relative;
@@ -33,7 +28,6 @@
   left: 15px;
   top: 215px;
   width: 85%;
-  /* text-align: justify; */
 }
 .podder-name-text {
     font-family: "ThirstyScriptRegular";
@@ -85,53 +79,33 @@ max-width:650px;
       var testUrl = 'https://insulet.sharepoint.com';
       var html = [];
       var webUrl = "https://insulet.sharepoint.com";
-
       var results = data.d.results;
       var siteCollectionURL = SP.PageContextInfo.get_siteServerRelativeUrl();
-
-      // var employeeMessage = data.d.results[0].EmployeeMessage;
       var employeePageUrl = data.d.results[0].EmployeePageURL.Url;
       var employeePicUrl = data.d.results[0].EmployeePictureUrl.Url;
-      // var employeePicUrl = "/Style%20Library/Insulet/Images/Employee%20Spotlight/AaronRideout.jpg"
-      console.log(employeePicUrl);
       var employeeName = data.d.results[0].EmployeeName;
       var employeeQuote = data.d.results[0].EmployeeQuote;
       var employeeSince = data.d.results[0].EmployeeSince;
-      // console.log(employeeMessage);
-      // console.log(employeePageUrl);
-      // console.log(employeePicUrl);
-      // console.log(employeeNameAndTitle);
+
 
       html.push("<div class='ps-container' ><div class='ps-name'><span class='podder-name-text'>" + employeeName + "</span><br>" + employeeSince + "</div>");
       html.push("<div class='ps-story'>" + employeeQuote + "</div>");
       html.push("<div class='ps-view-page'><p class='ps-view-text'>  <a target='_blank'      href='" + employeePageUrl + "'>View Page</a></p></div>");
-
-
       $('#empSpot').append(html.join(''));
       $('.ps-container').css('background-image', 'url(' + employeePicUrl + ')');
     };
-
 
     function getSpotlightError(error) {
       					alert("error");
     };
   });
-
   function OpenInNewTab(url) {
     var win = window.open(url, '_blank');
     win.focus();
   }
 </script>
-
 <body>
   <div id='empSpot' class='empSpotOuter'>
-        <!-- <div class='empSpotName'><span class='empSpotNameText'>Aaron Rideout</span><br>Employee Since 2015</div>
-        <div class='empSpotStory'>“It’s been an amazing ride thus far, but... the best is yet to come.”</div>
-        <div class='empSpotViewPage'><p class='empSpotViewPageText'>  <a target='_blank'      href='https://insulet.sharepoint.com/Pages/AaronRideout.aspx'>View Page</a></p></div> -->
-      <!-- </div> -->
-
   </div>
-
 </body>
-
 </html>
