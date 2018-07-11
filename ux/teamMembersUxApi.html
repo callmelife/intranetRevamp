@@ -1,0 +1,89 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Ahmed Mahmoud</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+    <div id="OurTeam"></div>
+	<script>
+		$(document).ready(function(){
+				'use strict';
+                //console.log("Hello from Web Part");
+				$.ajax({
+					url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('Our%20Team')/items?$select=*&$select=InsuletTeamMember/Title,InsuletTeamMember/JobTitle,InsuletTeamMember/EMail,InsuletTeamMember/Department,InsuletTeamMember/WorkPhone&$expand=InsuletTeamMember/ID&$top=20&$OrderBy=Order%20asc",
+					method: "GET",
+					headers: { "Accept": "application/json; odata=verbose" },
+					success: getUserSuccess,
+					error: getUserError
+				});
+
+				function getUserSuccess(data, request) {
+					var html = [];
+					var results = data.d.results;
+					//console.log(data.d);
+					var siteCollectionURL = SP.PageContextInfo.get_siteServerRelativeUrl();
+					var siteURL = _spPageContextInfo.webServerRelativeUrl;
+					//var image =  "https://nam.delve.office.com/mt/v3/people/profileimage?size=L&userId=";
+					var image = "https://insulet.sharepoint.com/_layouts/userphoto.aspx?size=S&accountname=";
+					var mysite = "https://insulet-my.sharepoint.com/_layouts/15/me.aspx?p=";
+					var membersPage = siteURL + "/Pages/Members.aspx";
+					var icon = siteCollectionURL + "/Style%20Library/Insulet/Images/people.jpg";
+
+						for (var i = 0; i < results.length; i++) {
+							html.push("<div class='contact-item'><div class='contact-profile-image'><img src='" + image + results[i].InsuletTeamMember.EMail + "'></div>");
+							if(results[i].InsuletTeamMember.Title){
+								html.push("<ul class='contact-profile-details'><li class='contact-name'>" + results[i].InsuletTeamMember.Title + "</li>");
+							}
+							if(results[i].InsuletTeamMember.JobTitle){
+								html.push("<li class='contact-description'>" + results[i].InsuletTeamMember.JobTitle + "</li>");
+							}
+							if(results[i].InsuletTeamMember.EMail ){
+								html.push("<li class='contact-email'><a href='" + "mailto:" + results[i].InsuletTeamMember.EMail + "'>" + results[i].InsuletTeamMember.EMail + "</a></li>");
+							}
+							if(results[i].InsuletTeamMember.WorkPhone){
+								html.push("<li class=''>" + "Office Phone: " + results[i].InsuletTeamMember.WorkPhone + "</li>");
+							}
+								html.push("</ul>");
+										}
+									if(i = results.length){
+										html.push("<hr style='border: 0;height: 1px;background: #eee;'><div  class='AllLink'><a style='color: black;' href='https://insulet.sharepoint.com/Pages/UXMemebers.aspx'>View All</a></div>");
+
+
+					}
+					$('#OurTeam').append(html.join(''));
+
+				}
+
+
+				function getUserError(error) {
+//					alert("error");
+					html.push("<div>Please refresh the page and try again</div>");
+				}
+		});
+
+			function OpenInNewTab(url) {
+			  var win = window.open(url, '_blank');
+			  win.focus();
+			}
+	</script>
+
+  <style type='text/css'>
+  .AllLink {
+    text-align: right;
+padding-right: 15px;
+float: right;
+margin-bottom: 31px;
+  }
+
+  #OurTeam {
+    padding: 32px 15px 30px;
+  }
+  </style>
+</body>
+</html>
